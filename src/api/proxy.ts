@@ -20,7 +20,7 @@ export default async (req: Request, res: Response) => {
     // Puppeteer is a headless browser that can render web pages
     // and resolves a lot of issues with javascript and weird
     // web pages.
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
     const html = await page.content();
