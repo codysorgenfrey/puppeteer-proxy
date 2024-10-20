@@ -1,11 +1,14 @@
 import * as cheerio from 'cheerio';
-import throwServerError, { ServerError } from './utils.js';
+import { throwServerError, ServerError, isAuthenticated } from './utils.js';
 import { Request, Response } from 'express';
 import puppeteer from 'puppeteer';
 
 export default async (req: Request, res: Response) => {
   let browser;
   try {
+    // Check for API key
+    if (!isAuthenticated(req)) throwServerError('Forbidden', 401);
+
     const url = req.query.url as string;
     if (url === undefined) throwServerError('Missing URL', 400);
 
