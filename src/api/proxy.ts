@@ -41,7 +41,7 @@ export default async (req: Request, res: Response) => {
     // are resolved correctly.
     const $ = cheerio.load(html);
     $('head').prepend(
-      `<base href="${jsUrl.protocol + '//' + jsUrl.hostname}">`
+      `<base href="${jsUrl.protocol + '//' + jsUrl.hostname}">`,
     );
 
     // Set the cache control header to cache the page for one day
