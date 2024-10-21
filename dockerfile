@@ -1,14 +1,13 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
+FROM ghcr.io/puppeteer/puppeteer:23.6.0
 
-# Skip downloading chrome, tell puppeteer where the exe is
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+# Skip downloading chrome, comes with the docker image
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 # Defined in the puppeteer image
 WORKDIR /usr/src/app 
 
 # Install dependencies first and they cache on their own layer
-COPY package*.json .
+COPY package.json .
 
 RUN npm install
 
