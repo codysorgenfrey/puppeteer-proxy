@@ -51,11 +51,10 @@ export default async (req: Request, res: Response) => {
     // and resolves a lot of issues with javascript and weird
     // web pages.
     browser = await puppeteer.launch({
-      timeout: 120000, // 2 minutes,
       args: megaScraperArgs({}),
     });
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' });
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
     const html = await page.content();
 
     // Using cherrio to manipulate the DOM, we add a base tag
