@@ -48,6 +48,9 @@ export default async (req: Request, res: Response) => {
       args: megaScraperArgs({}),
     });
     const page = await browser.newPage();
+    await page.setUserAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 Edg/132.0.0.0',
+    );
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 0 });
     const html = await page.content();
 
