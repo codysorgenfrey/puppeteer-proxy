@@ -41,6 +41,11 @@ export default async (req: Request, res: Response) => {
     const url = req.query.url as string;
     if (url === undefined) throwServerError('Missing URL', 400);
 
+    const response = {
+      page: '',
+      url,
+    };
+
     // Puppeteer is a headless browser that can render web pages
     // and resolves a lot of issues with javascript and weird
     // web pages.
@@ -52,9 +57,10 @@ export default async (req: Request, res: Response) => {
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 Edg/132.0.0.0',
     );
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 0 });
-    const html = await page.content();
+    response.page = await page.content();
+    response.url = page.url();
 
-    return res.send(html);
+    return res.json(response);
   } catch (err) {
     console.error(err);
     const serverError = err as ServerError;

@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-proxy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A proxy the returns websites via puppeteer",
   "main": "dist/index.js",
   "type": "module",
